@@ -1,0 +1,4198 @@
+openapi: 3.0.3
+info:
+  title: Polytomic API
+  version: '2022-12-12'
+servers:
+  - url: https://app.polytomic.com/
+paths:
+  /api/bulk/dest/{id}:
+    get:
+      tags:
+        - Bulk Sync
+      summary: Get Bulk Destination
+      operationId: api/v2.GetBulkDestination
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2BulkSyncDestEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+  /api/bulk/source/{id}:
+    get:
+      tags:
+        - Bulk Sync
+      summary: Get Bulk Source
+      operationId: api/v2.GetBulkSource
+      parameters:
+        - name: refresh_schemas
+          in: query
+          schema:
+            type: boolean
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2BulkSyncSourceEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+  /api/bulk/syncs:
+    get:
+      tags:
+        - Bulk Sync
+      summary: List Bulk Syncs
+      operationId: api/v2.ListBulkSyncs
+      parameters:
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2BulkSyncListEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+    post:
+      tags:
+        - Bulk Sync
+      summary: Create Bulk Sync
+      operationId: api/v2.CreateBulkSync
+      parameters:
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/V2CreateBulkSyncRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2BulkSyncResponseEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+  /api/bulk/syncs/{id}:
+    delete:
+      tags:
+        - Bulk Sync
+      summary: Remove Bulk Sync
+      operationId: api/v2.RemoveBulkSync
+      parameters:
+        - name: refresh_schemas
+          in: query
+          schema:
+            type: boolean
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+    get:
+      tags:
+        - Bulk Sync
+      summary: Get Bulk Sync
+      operationId: api/v2.GetBulkSync
+      parameters:
+        - name: refresh_schemas
+          in: query
+          schema:
+            type: boolean
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2BulkSyncResponseEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+    patch:
+      tags:
+        - Bulk Sync
+      summary: Update Bulk Sync
+      description: >
+        > 📘 Updating schemas
+
+        >
+
+        > Schema updates can be performed using the [Update Bulk Sync
+        Schemas](https://docs.polytomic.com/reference/apiv3updatebulksyncschemas)
+        endpoint.
+      operationId: api/v2.UpdateBulkSync
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/V2UpdateBulkSyncRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2BulkSyncResponseEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+  /api/bulk/syncs/{id}/activate:
+    post:
+      tags:
+        - Bulk Sync
+      summary: Activate Bulk Sync
+      operationId: api/v2.ActivateBulkSync
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/V2ActivateSyncInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2ActivateSyncEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+  /api/bulk/syncs/{id}/schemas:
+    get:
+      tags:
+        - Bulk Sync
+      summary: Get Bulk Sync Schemas
+      operationId: api/v2.GetBulkSyncSchemas
+      parameters:
+        - name: refresh_schemas
+          in: query
+          schema:
+            type: boolean
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2ListBulkSchemaEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+    patch:
+      tags:
+        - Bulk Sync
+      summary: Update Bulk Sync Schemas
+      operationId: api/v2.UpdateBulkSyncSchemas
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/V2BulkSyncSchemasRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2ListBulkSchemaEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+  /api/bulk/syncs/{id}/schemas/{schema_id}:
+    get:
+      tags:
+        - Bulk Sync
+      summary: Get Bulk Sync Schema
+      operationId: api/v2.GetBulkSyncSchema
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: schema_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2BulkSchemaEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+    patch:
+      tags:
+        - Bulk Sync
+      summary: Update Bulk Sync Schema
+      operationId: api/v2.UpdateBulkSyncSchema
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: schema_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/V2UpdateBulkSchema'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2BulkSchemaEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+  /api/connection_types:
+    get:
+      tags:
+        - Connections
+      summary: Get Connection Types
+      operationId: api/v2.GetConnectionTypes
+      parameters:
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2ConnectionTypeResponseEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+  /api/connections:
+    get:
+      tags:
+        - Connections
+      summary: List Connections
+      operationId: api/v2.ListConnections
+      parameters:
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2ConnectionListResponseEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+    post:
+      tags:
+        - Connections
+      summary: Create Connection
+      operationId: api/v2.CreateConnection
+      parameters:
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/V2CreateConnectionRequestSchema'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2CreateConnectionResponseEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+  /api/connections/{id}:
+    delete:
+      tags:
+        - Connections
+      summary: Remove Connection
+      operationId: api/v2.RemoveConnection
+      parameters:
+        - name: force
+          in: query
+          schema:
+            type: boolean
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+    get:
+      tags:
+        - Connections
+      summary: Get Connection
+      operationId: api/v2.GetConnection
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2ConnectionResponseEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+    patch:
+      tags:
+        - Connections
+      summary: Update Connection
+      operationId: api/v2.UpdateConnection
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/V2UpdateConnectionRequestSchema'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2CreateConnectionResponseEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+  /api/connections/{id}/source:
+    get:
+      tags:
+        - Connections
+      summary: Get Connection Source
+      operationId: api/v2.GetConnectionSource
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2GetConnectionMetaEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+  /api/connections/{id}/source/fields:
+    post:
+      tags:
+        - Connections
+      summary: Connection Field Query
+      operationId: api/v2.GetConnectionSourceFields
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/V2ModelFieldsRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2ModelFieldResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+  /api/connections/{id}/target:
+    get:
+      tags:
+        - Connections
+      summary: Get Connection Target
+      operationId: api/v2.GetConnectionTarget
+      parameters:
+        - name: type
+          in: query
+          schema:
+            type: string
+        - name: search
+          in: query
+          schema:
+            type: string
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2GetConnectionMetaEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+  /api/connections/{id}/target/fields:
+    post:
+      tags:
+        - Connections
+      summary: Get Connection Target Fields
+      operationId: api/v2.GetConnectionTargetFields
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/V2TargetRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2TargetResponseEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+  /api/events:
+    get:
+      tags:
+        - Events
+      summary: Get Events
+      operationId: api/v2.GetEvents
+      parameters:
+        - name: organization_id
+          in: query
+          schema:
+            type: string
+            format: uuid
+            nullable: true
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: type
+          in: query
+          schema:
+            type: string
+        - name: starting_after
+          in: query
+          schema:
+            type: string
+            format: date-time
+            example: '2020-01-01T00:00:00Z'
+        - name: ending_before
+          in: query
+          schema:
+            type: string
+            format: date-time
+            example: '2020-01-01T00:00:00Z'
+        - name: limit
+          in: query
+          schema:
+            maximum: 100
+            minimum: 1
+            type: integer
+            default: 10
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2EventsEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+  /api/events_types:
+    get:
+      tags:
+        - Events
+      summary: Get Event Types
+      operationId: api/v2.GetEventTypes
+      parameters:
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2EventTypesEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+  /api/me:
+    get:
+      tags:
+        - Identity
+      summary: Get Identity
+      operationId: api/v2.GetIdentity
+      parameters:
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2GetIdentityResponseEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+  /api/models:
+    get:
+      tags:
+        - Models
+      summary: List Models
+      operationId: api/v2.ListModels
+      parameters:
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2ModelListResponseEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+    post:
+      tags:
+        - Models
+      summary: Create Model
+      operationId: api/v2.CreateModel
+      parameters:
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/V2CreateModelRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2ModelResponseEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+  /api/models/{id}:
+    delete:
+      tags:
+        - Models
+      summary: Remove Model
+      operationId: api/v2.RemoveModel
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+    get:
+      tags:
+        - Models
+      summary: Get Model
+      operationId: api/v2.GetModel
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2ModelResponseEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+    patch:
+      tags:
+        - Models
+      summary: Update Model
+      operationId: api/v2.UpdateModel
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/V2UpdateModelRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2ModelResponseEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+  /api/organizations:
+    get:
+      tags:
+        - Organization
+      summary: Get Organizations
+      description: >-
+        > 🚧 Requires partner key
+
+        >
+
+        > Organization endpoints are only accessible using [partner
+        keys](https://docs.polytomic.com/reference/authentication#partner-keys)
+      operationId: api/v2.GetOrganizations
+      parameters:
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2OrganizationsEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+    post:
+      tags:
+        - Organization
+      summary: Create Organization
+      description: >-
+        > 🚧 Requires partner key
+
+        >
+
+        > Organization endpoints are only accessible using [partner
+        keys](https://docs.polytomic.com/reference/authentication#partner-keys)
+      operationId: api/v2.CreateOrganization
+      parameters:
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/V2CreateOrganizationRequestSchema'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2OrganizationEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+  /api/organizations/{id}:
+    delete:
+      tags:
+        - Organization
+      summary: Remove Organization
+      description: >-
+        > 🚧 Requires partner key
+
+        >
+
+        > Organization endpoints are only accessible using [partner
+        keys](https://docs.polytomic.com/reference/authentication#partner-keys)
+      operationId: api/v2.RemoveOrganization
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+    get:
+      tags:
+        - Organization
+      summary: Get Organization
+      description: >-
+        > 🚧 Requires partner key
+
+        >
+
+        > Organization endpoints are only accessible using [partner
+        keys](https://docs.polytomic.com/reference/authentication#partner-keys)
+      operationId: api/v2.GetOrganization
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2OrganizationEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+    patch:
+      tags:
+        - Organization
+      summary: Update Organization
+      description: >-
+        > 🚧 Requires partner key
+
+        >
+
+        > Organization endpoints are only accessible using [partner
+        keys](https://docs.polytomic.com/reference/authentication#partner-keys)
+      operationId: api/v2.UpdateOrganization
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/V2UpdateOrganizationRequestSchema'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2OrganizationEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+  /api/organizations/{org_id}/users:
+    get:
+      tags:
+        - Users
+      summary: List Users
+      description: >-
+        > 🚧 Requires partner key
+
+        >
+
+        > User endpoints are only accessible using [partner
+        keys](https://docs.polytomic.com/reference/authentication#partner-keys)
+      operationId: api/v2.ListUsers
+      parameters:
+        - name: org_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2ListUsersEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+    post:
+      tags:
+        - Users
+      summary: Create User
+      description: >-
+        > 🚧 Requires partner key
+
+        >
+
+        > User endpoints are only accessible using [partner
+        keys](https://docs.polytomic.com/reference/authentication#partner-keys)
+      operationId: api/v2.CreateUser
+      parameters:
+        - name: org_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/V2CreateUserRequestSchema'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2UserEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+  /api/organizations/{org_id}/users/{id}:
+    delete:
+      tags:
+        - Users
+      summary: Remove User
+      description: >-
+        > 🚧 Requires partner key
+
+        >
+
+        > User endpoints are only accessible using [partner
+        keys](https://docs.polytomic.com/reference/authentication#partner-keys)
+      operationId: api/v2.RemoveUser
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: org_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2UserEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+    get:
+      tags:
+        - Users
+      summary: Get User
+      description: >-
+        > 🚧 Requires partner key
+
+        >
+
+        > User endpoints are only accessible using [partner
+        keys](https://docs.polytomic.com/reference/authentication#partner-keys)
+      operationId: api/v2.GetUser
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: org_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2UserEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+    patch:
+      tags:
+        - Users
+      summary: Update User
+      description: >-
+        > 🚧 Requires partner key
+
+        >
+
+        > User endpoints are only accessible using [partner
+        keys](https://docs.polytomic.com/reference/authentication#partner-keys)
+      operationId: api/v2.UpdateUser
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: org_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/V2UpdateUserRequestSchema'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2UserEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+  /api/organizations/{org_id}/users/{id}/keys:
+    post:
+      tags:
+        - Users
+      summary: Create API Key
+      description: >-
+        > 🚧 Requires partner key
+
+        >
+
+        > User endpoints are only accessible using [partner
+        keys](https://docs.polytomic.com/reference/authentication#partner-keys)
+      operationId: api/v2.CreateAPIKey
+      parameters:
+        - name: force
+          in: query
+          schema:
+            type: boolean
+        - name: org_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2APIKeyResponseEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+  /api/permissions/policies:
+    get:
+      tags:
+        - Permissions
+      summary: List Policies
+      operationId: api/v2.ListPolicies
+      parameters:
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2ListPoliciesResponseEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+    post:
+      tags:
+        - Permissions
+      summary: Create Policy
+      operationId: api/v2.CreatePolicy
+      parameters:
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/V2CreatePolicyRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2PolicyResponseEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+  /api/permissions/policies/{id}:
+    delete:
+      tags:
+        - Permissions
+      summary: Delete Policy
+      operationId: api/v2.DeletePolicy
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+    get:
+      tags:
+        - Permissions
+      summary: Get Policy
+      operationId: api/v2.GetPolicy
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2PolicyResponseEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+    patch:
+      tags:
+        - Permissions
+      summary: Update Policy
+      operationId: api/v2.UpdatePolicy
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/V2UpdatePolicyRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2PolicyResponseEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+  /api/permissions/roles:
+    get:
+      tags:
+        - Permissions
+      summary: List Roles
+      operationId: api/v2.ListRoles
+      parameters:
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2RoleListResponseEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+    post:
+      tags:
+        - Permissions
+      summary: Create Role
+      operationId: api/v2.CreateRole
+      parameters:
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/V2CreateRoleRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2RoleResponseEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+  /api/permissions/roles/{id}:
+    delete:
+      tags:
+        - Permissions
+      summary: Delete Role
+      operationId: api/v2.DeleteRole
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+    get:
+      tags:
+        - Permissions
+      summary: Get Role
+      operationId: api/v2.GetRole
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2RoleResponseEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+    patch:
+      tags:
+        - Permissions
+      summary: Update Role
+      operationId: api/v2.UpdateRole
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/V2UpdateRoleRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2RoleResponseEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+  /api/syncs:
+    get:
+      tags:
+        - Model Sync
+      summary: List Syncs
+      operationId: api/v2.ListSyncs
+      parameters:
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2ListSyncResponseEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+    post:
+      tags:
+        - Model Sync
+      summary: Create Sync
+      operationId: api/v2.CreateSync
+      parameters:
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/V2CreateSyncRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2SyncResponseEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+  /api/syncs/{id}:
+    delete:
+      tags:
+        - Model Sync
+      summary: Remove Sync
+      operationId: api/v2.RemoveSync
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+    get:
+      tags:
+        - Model Sync
+      summary: Get Sync
+      operationId: api/v2.GetSync
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2SyncResponseEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+    patch:
+      tags:
+        - Model Sync
+      summary: Update Sync
+      operationId: api/v2.UpdateSync
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/V2UpdateSyncRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2SyncResponseEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+  /api/syncs/{id}/activate:
+    post:
+      tags:
+        - Model Sync
+      summary: Activate Sync
+      operationId: api/v2.ActivateSync
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/V2ActivateSyncInput'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2ActivateSyncEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+  /api/syncs/{id}/executions:
+    post:
+      tags:
+        - Model Sync
+      summary: Start Sync
+      operationId: api/v2.StartSync
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/V2StartSyncRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2StartSyncResponseEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+  /api/syncs/{id}/status:
+    get:
+      tags:
+        - Model Sync
+      summary: Get Sync Status
+      operationId: api/v2.GetSyncStatus
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2SyncStatusEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+  /api/syncs/{sync_id}/executions:
+    get:
+      tags:
+        - Model Sync
+      summary: List Executions
+      operationId: api/v2.ListExecutions
+      parameters:
+        - name: sync_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2ListExecutionResponseEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+  /api/syncs/{sync_id}/executions/{id}:
+    get:
+      tags:
+        - Model Sync
+      summary: Get Execution
+      operationId: api/v2.GetExecution
+      parameters:
+        - name: sync_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2GetExecutionResponseEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+  /api/syncs/{sync_id}/executions/{id}/inserts/{filename}:
+    get:
+      tags:
+        - Model Sync
+      summary: Get Execution Logs
+      operationId: api/v2.GetExecutionLogs2
+      parameters:
+        - name: sync_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: filename
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      responses:
+        '302':
+          description: Found
+          headers:
+            location:
+              style: simple
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+  /api/syncs/{sync_id}/executions/{id}/records/{filename}:
+    get:
+      tags:
+        - Model Sync
+      summary: Get Execution Logs
+      operationId: api/v2.GetExecutionLogs
+      parameters:
+        - name: sync_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: filename
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      responses:
+        '302':
+          description: Found
+          headers:
+            location:
+              style: simple
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+  /api/syncs/{sync_id}/executions/{id}/updates/{filename}:
+    get:
+      tags:
+        - Model Sync
+      summary: Get Execution Logs
+      operationId: api/v2.GetExecutionLogs3
+      parameters:
+        - name: sync_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: filename
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      responses:
+        '302':
+          description: Found
+          headers:
+            location:
+              style: simple
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+  /api/webhooks:
+    get:
+      tags:
+        - Webhooks
+      summary: List Webhooks
+      description: >
+        Webooks can be set up using the webhook API endpoints. Currently, only
+        one
+
+        webhook may be created per organization. The webhook will be called for
+        events
+
+        in that organization.
+
+
+        Consult the [Events
+        documentation](https://docs.polytomic.com/reference/events) for more
+        information.
+      operationId: api/v2.ListWebhooks
+      parameters:
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2WebhookListEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+    post:
+      tags:
+        - Webhooks
+      summary: Create Webhook
+      description: >
+        Webooks can be set up using the webhook API endpoints. Currently, only
+        one
+
+        webhook may be created per organization. The webhook will be called for
+        events
+
+        in that organization.
+
+
+        Consult the [Events
+        documentation](https://docs.polytomic.com/reference/events) for more
+        information.
+      operationId: api/v2.CreateWebhook
+      parameters:
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/V2CreateWebhooksSchema'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2WebhookEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+  /api/webhooks/{id}:
+    delete:
+      tags:
+        - Webhooks
+      summary: Delete Webhook
+      operationId: api/v2.DeleteWebhook
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+    get:
+      tags:
+        - Webhooks
+      summary: Get Webhook
+      description: >
+        Webooks can be set up using the webhook API endpoints. Currently, only
+        one
+
+        webhook may be created per organization. The webhook will be called for
+        events
+
+        in that organization.
+
+
+        Consult the [Events
+        documentation](https://docs.polytomic.com/reference/events) for more
+        information.
+      operationId: api/v2.GetWebhook
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2WebhookEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+    patch:
+      tags:
+        - Webhooks
+      summary: Update Webhook
+      description: >
+        Webooks can be set up using the webhook API endpoints. Currently, only
+        one
+
+        webhook may be created per organization. The webhook will be called for
+        events
+
+        in that organization.
+
+
+        Consult the [Events
+        documentation](https://docs.polytomic.com/reference/events) for more
+        information.
+      operationId: api/v2.UpdateWebhook
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        - name: X-Polytomic-Version
+          in: header
+          schema:
+            type: string
+            default: '2022-12-12'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/V2UpdateWebhooksSchema'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V2WebhookEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RestErrResponse'
+      security:
+        - APIKey: []
+components:
+  schemas:
+    BulkSchedule:
+      required:
+        - frequency
+      type: object
+      properties:
+        day_of_month:
+          type: string
+        day_of_week:
+          type: string
+        frequency:
+          type: string
+        hour:
+          type: string
+        minute:
+          type: string
+        month:
+          type: string
+    LabelLabel:
+      type: object
+    RestErrResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: Application-specific error code.
+        context:
+          type: object
+          additionalProperties: {}
+          description: Application context.
+        error:
+          type: string
+          description: Error message.
+        status:
+          type: string
+          description: Status text.
+    SyncDestinationProperties:
+      type: object
+      properties:
+        does_not_report_operation_counts:
+          type: boolean
+        new_target_label:
+          type: string
+        optional_target_mappings:
+          type: boolean
+        primary_metadata_object:
+          type: string
+        requires_configuration:
+          type: boolean
+        supports_field_creation:
+          type: boolean
+        supports_field_type_selection:
+          type: boolean
+        supports_target_filters:
+          type: boolean
+        target_creator:
+          type: boolean
+        use_field_names_as_labels:
+          type: boolean
+    V2APIKeyResponse:
+      type: object
+      properties:
+        value:
+          type: string
+    V2APIKeyResponseEnvelope:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/V2APIKeyResponse'
+    V2ActivateSyncEnvelope:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/V2ActivateSyncOutput'
+    V2ActivateSyncInput:
+      required:
+        - active
+      type: object
+      properties:
+        active:
+          type: boolean
+    V2ActivateSyncOutput:
+      type: object
+      properties:
+        active:
+          type: boolean
+        id:
+          type: string
+    V2BulkSchema:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        id:
+          type: string
+        partition_key:
+          type: string
+    V2BulkSchemaEnvelope:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/V2BulkSchema'
+    V2BulkSyncDest:
+      type: object
+      properties:
+        configuration:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/V2DestMeta'
+          nullable: true
+        modes:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2SupportedMode'
+          nullable: true
+    V2BulkSyncDestEnvelope:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/V2BulkSyncDest'
+    V2BulkSyncListEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2BulkSyncResponse'
+          nullable: true
+    V2BulkSyncResponse:
+      type: object
+      properties:
+        active:
+          type: boolean
+        destination_configuration:
+          type: object
+          additionalProperties: {}
+          nullable: true
+        destination_connection_id:
+          type: string
+        discover:
+          type: boolean
+        id:
+          type: string
+        mode:
+          type: string
+        name:
+          type: string
+        organization_id:
+          type: string
+        policies:
+          type: array
+          items:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        schedule:
+          $ref: '#/components/schemas/BulkSchedule'
+        source_configuration:
+          type: object
+          additionalProperties: {}
+          nullable: true
+        source_connection_id:
+          type: string
+    V2BulkSyncResponseEnvelope:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/V2BulkSyncResponse'
+    V2BulkSyncSchemasRequest:
+      type: object
+      properties:
+        schemas:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2BulkSchema'
+          nullable: true
+    V2BulkSyncSource:
+      type: object
+      properties:
+        configuration: {}
+        schemas:
+          type: array
+          items:
+            type: string
+          nullable: true
+    V2BulkSyncSourceEnvelope:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/V2BulkSyncSource'
+    V2ConfigurationValue:
+      type: object
+      properties:
+        items:
+          type: array
+          items: {}
+        type:
+          type: string
+    V2ConnectionListResponseEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2ConnectionResponseSchema'
+          nullable: true
+    V2ConnectionMeta:
+      type: object
+      properties:
+        has_items:
+          type: boolean
+        items:
+          type: array
+          items: {}
+          nullable: true
+        requires_one_of:
+          type: array
+          items:
+            type: string
+          nullable: true
+    V2ConnectionMetaResponse:
+      type: object
+      properties:
+        configuration:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/V2ConfigurationValue'
+        items:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/V2ConnectionMeta'
+          nullable: true
+        requires_one_of:
+          type: array
+          items:
+            type: string
+          nullable: true
+    V2ConnectionResponseEnvelope:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/V2ConnectionResponseSchema'
+    V2ConnectionResponseSchema:
+      type: object
+      properties:
+        configuration:
+          type: object
+          additionalProperties: {}
+          nullable: true
+        id:
+          type: string
+        name:
+          type: string
+        organization_id:
+          type: string
+        policies:
+          type: array
+          items:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        status:
+          type: string
+        status_error:
+          type: string
+        type:
+          $ref: '#/components/schemas/V2ConnectionTypeSchema'
+    V2ConnectionType:
+      type: object
+      properties:
+        envConfig:
+          type: object
+          additionalProperties: {}
+        id:
+          type: string
+        name:
+          type: string
+        use_oauth:
+          type: boolean
+    V2ConnectionTypeResponseEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2ConnectionType'
+          nullable: true
+    V2ConnectionTypeSchema:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+    V2CreateBulkSyncRequest:
+      required:
+        - name
+        - destination_connection_id
+        - source_connection_id
+        - mode
+        - schedule
+      type: object
+      properties:
+        active:
+          type: boolean
+        destination_configuration:
+          type: object
+          additionalProperties: {}
+          nullable: true
+        destination_connection_id:
+          type: string
+          format: uuid
+          example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        discover:
+          type: boolean
+        mode:
+          type: string
+        name:
+          type: string
+        organization_id:
+          type: string
+          format: uuid
+          nullable: true
+          example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        policies:
+          type: array
+          items:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+          nullable: true
+        schedule:
+          $ref: '#/components/schemas/BulkSchedule'
+        schemas:
+          type: array
+          items:
+            type: string
+          nullable: true
+        source_configuration:
+          type: object
+          additionalProperties: {}
+          nullable: true
+        source_connection_id:
+          type: string
+          format: uuid
+          example: 248df4b7-aa70-47b8-a036-33ac447e668d
+    V2CreateConnectionRequestSchema:
+      required:
+        - type
+        - name
+        - configuration
+      type: object
+      properties:
+        configuration:
+          type: object
+          additionalProperties: {}
+          nullable: true
+        name:
+          type: string
+        organization_id:
+          type: string
+          format: uuid
+          nullable: true
+          example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        policies:
+          type: array
+          items:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+          nullable: true
+        redirect_url:
+          type: string
+          description: URL to redirect to after completing OAuth flow.
+        type:
+          type: string
+        validate:
+          type: boolean
+          description: Validate connection configuration.
+          default: true
+    V2CreateConnectionResponseEnvelope:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/V2CreateConnectionResponseSchema'
+    V2CreateConnectionResponseSchema:
+      type: object
+      properties:
+        auth_code:
+          type: string
+          description: Code to enter in order to complete connection authentication.
+        auth_url:
+          type: string
+          description: URL to visit to complete connection authentication.
+        configuration:
+          type: object
+          additionalProperties: {}
+          nullable: true
+        id:
+          type: string
+        name:
+          type: string
+        organization_id:
+          type: string
+        policies:
+          type: array
+          items:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        status:
+          type: string
+        status_error:
+          type: string
+        type:
+          $ref: '#/components/schemas/V2ConnectionTypeSchema'
+    V2CreateModelRequest:
+      required:
+        - connection_id
+        - name
+        - configuration
+      type: object
+      properties:
+        additional_fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2ModelFieldRequest'
+          nullable: true
+        configuration:
+          type: object
+          additionalProperties: {}
+          nullable: true
+        connection_id:
+          type: string
+          format: uuid
+          example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        fields:
+          type: array
+          items:
+            type: string
+          nullable: true
+        identifier:
+          type: string
+        labels:
+          type: array
+          items:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+          nullable: true
+        name:
+          type: string
+        organization_id:
+          type: string
+          format: uuid
+          nullable: true
+          example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        policies:
+          type: array
+          items:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+          nullable: true
+        relations:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2Relation'
+          nullable: true
+        tracking_columns:
+          type: array
+          items:
+            type: string
+          nullable: true
+    V2CreateOrganizationRequestSchema:
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+        sso_domain:
+          type: string
+        sso_org_id:
+          type: string
+    V2CreatePolicyRequest:
+      required:
+        - name
+        - policy_actions
+      type: object
+      properties:
+        name:
+          type: string
+          example: Custom
+        organization_id:
+          type: string
+          format: uuid
+          nullable: true
+          example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        policy_actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2PolicyAction'
+          nullable: true
+    V2CreateRoleRequest:
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+          example: Custom
+        organization_id:
+          type: string
+          format: uuid
+          nullable: true
+          example: 248df4b7-aa70-47b8-a036-33ac447e668d
+    V2CreateSyncRequest:
+      required:
+        - name
+        - target
+        - mode
+        - fields
+        - schedule
+      type: object
+      properties:
+        active:
+          type: boolean
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2SyncField'
+          nullable: true
+        filter_logic:
+          type: string
+          example: A and B or C
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2Filter'
+          nullable: true
+        identity:
+          $ref: '#/components/schemas/V2Identity'
+        mode:
+          enum:
+            - update
+            - updateOrCreate
+            - create
+            - replace
+            - append
+            - snapshot
+          type: string
+        name:
+          type: string
+          example: Users Sync
+        organization_id:
+          type: string
+          format: uuid
+          nullable: true
+          example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        override_fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2SyncField'
+          nullable: true
+        overrides:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2Override'
+          nullable: true
+        policies:
+          type: array
+          items:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+          nullable: true
+        schedule:
+          $ref: '#/components/schemas/V2Schedule'
+        sync_all_records:
+          type: boolean
+        target:
+          $ref: '#/components/schemas/V2Target'
+    V2CreateUserRequestSchema:
+      required:
+        - email
+      type: object
+      properties:
+        email:
+          type: string
+        role:
+          type: string
+    V2CreateWebhooksSchema:
+      required:
+        - endpoint
+        - secret
+      type: object
+      properties:
+        endpoint:
+          type: string
+          example: https://example.com/webhook
+        organization_id:
+          type: string
+          format: uuid
+          nullable: true
+          example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        secret:
+          maxLength: 32
+          minLength: 6
+          type: string
+    V2DestMeta:
+      type: object
+      properties:
+        default:
+          type: string
+        items:
+          type: array
+          items:
+            type: string
+          nullable: true
+        required:
+          type: boolean
+    V2Event:
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date-time
+        event: {}
+        id:
+          type: string
+          format: uuid
+          example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        organization_id:
+          type: string
+          format: uuid
+          example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        type:
+          type: string
+    V2EventTypesEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: string
+          nullable: true
+    V2EventsEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2Event'
+          nullable: true
+    V2ExecutionCounts:
+      type: object
+      properties:
+        error:
+          type: integer
+        insert:
+          type: integer
+        total:
+          type: integer
+        update:
+          type: integer
+    V2Filter:
+      required:
+        - field_id
+        - field_type
+        - function
+      type: object
+      properties:
+        field_id:
+          type: string
+        field_type:
+          type: string
+        function:
+          type: string
+        label:
+          type: string
+        value: {}
+    V2GetConnectionMetaEnvelope:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/V2ConnectionMetaResponse'
+    V2GetExecutionResponseEnvelope:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/V2GetExecutionResponseSchema'
+    V2GetExecutionResponseSchema:
+      type: object
+      properties:
+        completed_at:
+          type: string
+          format: date-time
+          nullable: true
+        counts:
+          $ref: '#/components/schemas/V2ExecutionCounts'
+        created_at:
+          type: string
+          format: date-time
+        errors:
+          type: array
+          items:
+            type: string
+        id:
+          type: string
+          format: uuid
+          example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        started_at:
+          type: string
+          format: date-time
+          nullable: true
+        status:
+          type: string
+        type:
+          type: string
+    V2GetIdentityResponseEnvelope:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/V2GetIdentityResponseSchema'
+    V2GetIdentityResponseSchema:
+      type: object
+      properties:
+        email:
+          type: string
+        id:
+          type: string
+          format: uuid
+          example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        is_organization:
+          type: boolean
+        is_partner:
+          type: boolean
+        is_system:
+          type: boolean
+        is_user:
+          type: boolean
+        organization_id:
+          type: string
+          format: uuid
+          example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        organization_name:
+          type: string
+        role:
+          type: string
+    V2Identity:
+      required:
+        - source
+        - target
+        - function
+      type: object
+      properties:
+        function:
+          type: string
+        new_field:
+          type: boolean
+        remote_field_type_id:
+          type: string
+          nullable: true
+          example: string
+        source:
+          $ref: '#/components/schemas/V2Source'
+        target:
+          type: string
+          example: name
+    V2IdentityFunction:
+      type: object
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+    V2ListBulkSchemaEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2BulkSchema'
+          nullable: true
+    V2ListExecutionResponseEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2GetExecutionResponseSchema'
+          nullable: true
+    V2ListPoliciesResponseEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2PolicyResponse'
+          nullable: true
+    V2ListSyncResponseEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2SyncResponse'
+          nullable: true
+    V2ListUsersEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2User'
+          nullable: true
+    V2Mode:
+      type: object
+      properties:
+        description:
+          type: string
+        label:
+          type: string
+        mode:
+          type: string
+        requires_identity:
+          type: boolean
+        supports_field_sync_mode:
+          type: boolean
+        supports_target_filters:
+          type: boolean
+    V2ModelField:
+      type: object
+      properties:
+        description:
+          type: string
+        example: {}
+        label:
+          type: string
+        name:
+          type: string
+        remote_type:
+          type: string
+        type:
+          type: string
+        unique:
+          type: boolean
+        user_added:
+          type: boolean
+    V2ModelFieldRequest:
+      required:
+        - name
+        - label
+        - type
+      type: object
+      properties:
+        example:
+          type: string
+        label:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+    V2ModelFieldResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2ModelField'
+          nullable: true
+    V2ModelFieldsRequest:
+      required:
+        - query
+      type: object
+      properties:
+        query:
+          type: object
+          additionalProperties: {}
+          nullable: true
+    V2ModelListResponseEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2ModelResponse'
+          nullable: true
+    V2ModelResponse:
+      type: object
+      properties:
+        configuration:
+          type: object
+          additionalProperties: {}
+        connection_id:
+          type: string
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2ModelField'
+        id:
+          type: string
+        identifier:
+          type: string
+        labels:
+          type: array
+          items:
+            $ref: '#/components/schemas/LabelLabel'
+        name:
+          type: string
+        organization_id:
+          type: string
+        policies:
+          type: array
+          items:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        relations:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2Relation'
+        tracking_columns:
+          type: array
+          items:
+            type: string
+        type:
+          type: string
+        version:
+          type: integer
+    V2ModelResponseEnvelope:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/V2ModelResponse'
+    V2Organization:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        sso_domain:
+          type: string
+        sso_org_id:
+          type: string
+    V2OrganizationEnvelope:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/V2Organization'
+    V2OrganizationsEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2Organization'
+          nullable: true
+    V2Override:
+      type: object
+      properties:
+        field_id:
+          type: string
+        function:
+          type: string
+        override: {}
+        value: {}
+    V2PolicyAction:
+      required:
+        - action
+        - role_ids
+      type: object
+      properties:
+        action:
+          type: string
+          example: read
+        role_ids:
+          type: array
+          items:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+          nullable: true
+    V2PolicyResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        organization_id:
+          type: string
+        policy_actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2PolicyAction'
+        system:
+          type: boolean
+    V2PolicyResponseEnvelope:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/V2PolicyResponse'
+    V2Relation:
+      type: object
+      properties:
+        from:
+          type: string
+        to:
+          $ref: '#/components/schemas/V2RelationTo'
+    V2RelationTo:
+      type: object
+      properties:
+        field:
+          type: string
+        model_id:
+          type: string
+          format: uuid
+          example: 248df4b7-aa70-47b8-a036-33ac447e668d
+    V2RoleListResponseEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2RoleResponse'
+          nullable: true
+    V2RoleResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        organization_id:
+          type: string
+        system:
+          type: boolean
+    V2RoleResponseEnvelope:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/V2RoleResponse'
+    V2RunAfter:
+      type: object
+      properties:
+        bulk_sync_ids:
+          type: array
+          items:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        sync_ids:
+          type: array
+          items:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+    V2Schedule:
+      type: object
+      properties:
+        day_of_month:
+          type: string
+          nullable: true
+        day_of_week:
+          type: string
+          nullable: true
+        frequency:
+          type: string
+        hour:
+          type: string
+          nullable: true
+        minute:
+          type: string
+          nullable: true
+        month:
+          type: string
+          nullable: true
+        run_after:
+          $ref: '#/components/schemas/V2RunAfter'
+    V2Source:
+      required:
+        - model_id
+        - field
+      type: object
+      properties:
+        field:
+          type: string
+          example: id
+        model_id:
+          type: string
+          format: uuid
+          example: 248df4b7-aa70-47b8-a036-33ac447e668d
+    V2StartSyncRequest:
+      type: object
+      properties:
+        identities:
+          type: array
+          items:
+            type: string
+          nullable: true
+    V2StartSyncResponseEnvelope:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/V2StartSyncResponseSchema'
+    V2StartSyncResponseSchema:
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date-time
+        id:
+          type: string
+        status:
+          type: string
+    V2SupportedMode:
+      type: object
+      properties:
+        description:
+          type: string
+        id:
+          type: string
+          description: ''
+        label:
+          type: string
+        requires_identity:
+          type: boolean
+        supports_field_sync_mode:
+          type: boolean
+        supports_target_filters:
+          type: boolean
+    V2SyncField:
+      required:
+        - source
+        - target
+      type: object
+      properties:
+        new:
+          type: boolean
+        override_value:
+          type: string
+        source:
+          $ref: '#/components/schemas/V2Source'
+        sync_mode:
+          type: string
+        target:
+          type: string
+          example: name
+    V2SyncResponse:
+      type: object
+      properties:
+        active:
+          type: boolean
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2SyncField'
+        filter_logic:
+          type: string
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2Filter'
+        id:
+          type: string
+        identity:
+          $ref: '#/components/schemas/V2Identity'
+        mode:
+          type: string
+        name:
+          type: string
+        organization_id:
+          type: string
+        override_fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2SyncField'
+        overrides:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2Override'
+        policies:
+          type: array
+          items:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        schedule:
+          $ref: '#/components/schemas/V2Schedule'
+        sync_all_records:
+          type: boolean
+        target:
+          $ref: '#/components/schemas/V2Target'
+    V2SyncResponseEnvelope:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/V2SyncResponse'
+    V2SyncStatusEnvelope:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/V2SyncStatusResponse'
+    V2SyncStatusResponse:
+      type: object
+      properties:
+        current_execution:
+          $ref: '#/components/schemas/V2GetExecutionResponseSchema'
+        last_execution:
+          $ref: '#/components/schemas/V2GetExecutionResponseSchema'
+        next_execution_time:
+          type: string
+          format: date-time
+          nullable: true
+    V2Target:
+      required:
+        - connection_id
+        - object
+      type: object
+      properties:
+        configuration:
+          type: object
+          additionalProperties: {}
+        connection_id:
+          type: string
+          format: uuid
+          example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        filter_logic:
+          type: string
+        new_name:
+          type: string
+        object:
+          type: string
+          example: Users
+        search_values:
+          type: object
+          additionalProperties: {}
+    V2TargetField:
+      type: object
+      properties:
+        association:
+          type: boolean
+        createable:
+          type: boolean
+        description:
+          type: string
+        filterable:
+          type: boolean
+        id:
+          type: string
+        identity_functions:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2IdentityFunction'
+          nullable: true
+        name:
+          type: string
+        required:
+          type: boolean
+        source_type:
+          type: string
+        supports_identity:
+          type: boolean
+        type:
+          type: string
+        updateable:
+          type: boolean
+    V2TargetRequest:
+      required:
+        - target
+      type: object
+      properties:
+        refresh:
+          type: boolean
+        target:
+          type: string
+          example: database.table
+    V2TargetResponse:
+      type: object
+      properties:
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2TargetField'
+          nullable: true
+        id:
+          type: string
+        modes:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2Mode'
+          nullable: true
+        name:
+          type: string
+        properties:
+          $ref: '#/components/schemas/SyncDestinationProperties'
+        refreshed_at:
+          type: string
+          format: date-time
+    V2TargetResponseEnvelope:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/V2TargetResponse'
+    V2UpdateBulkSchema:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+        partition_key:
+          type: string
+    V2UpdateBulkSyncRequest:
+      required:
+        - name
+        - destination_connection_id
+        - source_connection_id
+        - mode
+        - schedule
+      type: object
+      properties:
+        active:
+          type: boolean
+        destination_configuration:
+          type: object
+          additionalProperties: {}
+          nullable: true
+        destination_connection_id:
+          type: string
+          format: uuid
+          example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        discover:
+          type: boolean
+        mode:
+          type: string
+        name:
+          type: string
+        organization_id:
+          type: string
+          format: uuid
+          nullable: true
+          example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        policies:
+          type: array
+          items:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+          nullable: true
+        schedule:
+          $ref: '#/components/schemas/BulkSchedule'
+        source_configuration:
+          type: object
+          additionalProperties: {}
+          nullable: true
+        source_connection_id:
+          type: string
+          format: uuid
+          example: 248df4b7-aa70-47b8-a036-33ac447e668d
+    V2UpdateConnectionRequestSchema:
+      required:
+        - name
+        - configuration
+      type: object
+      properties:
+        configuration:
+          type: object
+          additionalProperties: {}
+          nullable: true
+        name:
+          type: string
+        organization_id:
+          type: string
+          format: uuid
+          nullable: true
+          example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        policies:
+          type: array
+          items:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+          nullable: true
+        reconnect:
+          type: boolean
+        type:
+          type: string
+        validate:
+          type: boolean
+          description: Validate connection configuration.
+          default: true
+    V2UpdateModelRequest:
+      required:
+        - connection_id
+        - name
+        - configuration
+      type: object
+      properties:
+        additional_fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2ModelFieldRequest'
+          nullable: true
+        configuration:
+          type: object
+          additionalProperties: {}
+          nullable: true
+        connection_id:
+          type: string
+          format: uuid
+          example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        fields:
+          type: array
+          items:
+            type: string
+          nullable: true
+        identifier:
+          type: string
+        labels:
+          type: array
+          items:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+          nullable: true
+        name:
+          type: string
+        organization_id:
+          type: string
+          format: uuid
+          nullable: true
+          example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        policies:
+          type: array
+          items:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+          nullable: true
+        relations:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2Relation'
+          nullable: true
+        tracking_columns:
+          type: array
+          items:
+            type: string
+          nullable: true
+    V2UpdateOrganizationRequestSchema:
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+        sso_domain:
+          type: string
+        sso_org_id:
+          type: string
+    V2UpdatePolicyRequest:
+      required:
+        - name
+        - policy_actions
+      type: object
+      properties:
+        name:
+          type: string
+          example: Custom
+        organization_id:
+          type: string
+          format: uuid
+          nullable: true
+          example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        policy_actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2PolicyAction'
+          nullable: true
+    V2UpdateRoleRequest:
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+          example: Custom
+        organization_id:
+          type: string
+          format: uuid
+          nullable: true
+          example: 248df4b7-aa70-47b8-a036-33ac447e668d
+    V2UpdateSyncRequest:
+      required:
+        - name
+        - target
+        - mode
+        - fields
+        - schedule
+      type: object
+      properties:
+        active:
+          type: boolean
+        fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2SyncField'
+          nullable: true
+        filter_logic:
+          type: string
+          example: A and B or C
+        filters:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2Filter'
+          nullable: true
+        identity:
+          $ref: '#/components/schemas/V2Identity'
+        mode:
+          enum:
+            - update
+            - updateOrCreate
+            - create
+            - replace
+            - append
+            - snapshot
+          type: string
+        name:
+          type: string
+          example: Users Sync
+        organization_id:
+          type: string
+          format: uuid
+          nullable: true
+          example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        override_fields:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2SyncField'
+          nullable: true
+        overrides:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2Override'
+          nullable: true
+        policies:
+          type: array
+          items:
+            type: string
+            format: uuid
+            example: 248df4b7-aa70-47b8-a036-33ac447e668d
+          nullable: true
+        schedule:
+          $ref: '#/components/schemas/V2Schedule'
+        sync_all_records:
+          type: boolean
+        target:
+          $ref: '#/components/schemas/V2Target'
+    V2UpdateUserRequestSchema:
+      required:
+        - email
+      type: object
+      properties:
+        email:
+          type: string
+        role:
+          type: string
+    V2UpdateWebhooksSchema:
+      required:
+        - endpoint
+        - secret
+      type: object
+      properties:
+        endpoint:
+          type: string
+          example: https://example.com/webhook
+        organization_id:
+          type: string
+          format: uuid
+          nullable: true
+          example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        secret:
+          maxLength: 32
+          minLength: 6
+          type: string
+    V2User:
+      type: object
+      properties:
+        email:
+          type: string
+        id:
+          type: string
+        organization_id:
+          type: string
+        role:
+          type: string
+    V2UserEnvelope:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/V2User'
+    V2Webhook:
+      type: object
+      properties:
+        created_at:
+          type: string
+          format: date-time
+        endpoint:
+          type: string
+        id:
+          type: string
+          format: uuid
+          example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        organization_id:
+          type: string
+          format: uuid
+          example: 248df4b7-aa70-47b8-a036-33ac447e668d
+        secret:
+          type: string
+    V2WebhookEnvelope:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/V2Webhook'
+    V2WebhookListEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/V2Webhook'
+          nullable: true
+  securitySchemes:
+    APIKey:
+      type: http
+      scheme: bearer
+      bearerFormat: Bearer
+      description: This is the Polytomic API key

@@ -1,18 +1,18 @@
 instances:
-  - url: your-organization.docs.buildwithfern.com
+  - url: rohitverma-007.docs.buildwithfern.com
 
 title: Your Organization | Docs
 
 navigation:
   - section: Getting started
-    contents: 
-      - page: Welcome 
-        path: ./docs/pages/welcome.mdx
-      - page: SDKs
-        path: ./docs/pages/sdks.mdx
+    contents:
+      - page: Introduction
+        path: ./docs/pages/introduction.mdx
+      - page: Quickstart
+        path: ./docs/pages/quickstart.mdx
   - api: API Reference
 
-navbar-links: 
+navbar-links:
   - type: secondary
     text: Contact us
     url: "mailto:support@buildwithfern.com"
